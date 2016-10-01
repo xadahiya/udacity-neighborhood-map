@@ -19,19 +19,20 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
+            <div class="filter-wrapper">
+            <label for="filter_map" id="filter_label">Filter</label>
+            <input type="text" id="filter_map" value="" data-bind="">    
+            </div>
+            
             <ul class="sidebar-nav">
-                <li class="sidebar-brand">
-                    <a href="#">
-                        Start Bootstrap
-                    </a>
-                </li>
+                    
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle">
+            <a href="#menu-toggle" class="btn btn-primary" id="menu-toggle" data-bind="click: toggleMenu">
                 <span class="glyphicon glyphicon-menu-hamburger"></span>
             </a>
             <div id="map"></div>

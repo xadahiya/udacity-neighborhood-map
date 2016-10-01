@@ -13,6 +13,13 @@
      will-change: transform;
  }
 
+ #filter_label {
+     color: white;
+      }
+
+.filter-wrapper {
+    padding:10px;
+}
 /* Toggle Styles */
 
 #wrapper {
