@@ -1,13 +1,13 @@
 $(document).ready(function(){
 
     var locations_array = [
-        { title: 'Great wall of China', location: { lat: 40.4345472, lng: 116.4978999}, id: 'ChIJzyx_aNch8TUR3yIFlZslQNA'},
-        { title: 'Petra', location: { lat:30.328459, lng:35.4421735}, id: 'ChIJsbYaAjBpARURueCjw3tpOuQ'},
-        { title: 'Stonehenge', location: { lat:51.1788853, lng:-1.8284037}, id: 'ChIJEfYKhTvmc0gR3dLTvOJwkZc'},
-        { title: 'Leaning Tower of Pisa', location: { lat:43.7229559, lng:10.3944083}, id: 'ChIJzYhOxKaR1RIRA_xU1bGp7DI'},
-        { title: 'Taj Mahal', location: { lat:27.1750199, lng:78.0399665}, id: 'ChIJPRQcHyBxdDkRs1lw_Dj1QnU'},
-        { title: 'Abbaye de Cluny', location: { lat:46.4341389, lng:4.6570857}, id: 'ChIJn63c2bgK80cRyRNh9EUhiC4'},
-        { title: 'Colosseum', location: { lat:41.8902142, lng:12.4900422}, id: 'ChIJrRMgU7ZhLxMRxAOFkC7I8Sg'},
+        { title: 'Great wall of China', desc: "",location: { lat: 40.4345472, lng: 116.4978999}, id: 'ChIJzyx_aNch8TUR3yIFlZslQNA', pageId: '5094570'},
+        { title: 'Petra', desc: "", location: { lat:30.328459, lng:35.4421735}, id: 'ChIJsbYaAjBpARURueCjw3tpOuQ', pageId: '45008'},
+        { title: 'Stonehenge', desc: "", location: { lat:51.1788853, lng:-1.8284037}, id: 'ChIJEfYKhTvmc0gR3dLTvOJwkZc', pageId: '27633'},
+        { title: 'Leaning Tower of Pisa',desc: "", location: { lat:43.7229559, lng:10.3944083}, id: 'ChIJzYhOxKaR1RIRA_xU1bGp7DI', pageId: '625899'},
+        { title: 'Taj Mahal',desc: "", location: { lat:27.1750199, lng:78.0399665}, id: 'ChIJPRQcHyBxdDkRs1lw_Dj1QnU', pageId: '3135639'},
+        { title: 'Abbaye de Cluny',desc: "", location: { lat:46.4341389, lng:4.6570857}, id: 'ChIJn63c2bgK80cRyRNh9EUhiC4', pageId: '20209307'},
+        { title: 'Colosseum',desc: "", location: { lat:41.8902142, lng:12.4900422}, id: 'ChIJrRMgU7ZhLxMRxAOFkC7I8Sg', pageId: '49603'},
 
     ];
 
@@ -17,13 +17,13 @@ $(document).ready(function(){
         },
 
         locations: ko.observableArray([
-        { title: 'Great wall of China', location: { lat: 40.4345472, lng: 116.4978999}, id: 'ChIJzyx_aNch8TUR3yIFlZslQNA'},
-        { title: 'Petra', location: { lat:30.328459, lng:35.4421735}, id: 'ChIJsbYaAjBpARURueCjw3tpOuQ'},
-        { title: 'Stonehenge', location: { lat:51.1788853, lng:-1.8284037}, id: 'ChIJEfYKhTvmc0gR3dLTvOJwkZc'},
-        { title: 'Leaning Tower of Pisa', location: { lat:43.7229559, lng:10.3944083}, id: 'ChIJzYhOxKaR1RIRA_xU1bGp7DI'},
-        { title: 'Taj Mahal', location: { lat:27.1750199, lng:78.0399665}, id: 'ChIJPRQcHyBxdDkRs1lw_Dj1QnU'},
-        { title: 'Abbaye de Cluny', location: { lat:46.4341389, lng:4.6570857}, id: 'ChIJn63c2bgK80cRyRNh9EUhiC4'},
-        { title: 'Colosseum', location: { lat:41.8902142, lng:12.4900422}, id: 'ChIJrRMgU7ZhLxMRxAOFkC7I8Sg'},
+        { title: 'Great wall of China', desc: "",location: { lat: 40.4345472, lng: 116.4978999}, id: 'ChIJzyx_aNch8TUR3yIFlZslQNA', pageId: '5094570'},
+        { title: 'Petra', desc: "", location: { lat:30.328459, lng:35.4421735}, id: 'ChIJsbYaAjBpARURueCjw3tpOuQ', pageId: '45008'},
+        { title: 'Stonehenge', desc: "", location: { lat:51.1788853, lng:-1.8284037}, id: 'ChIJEfYKhTvmc0gR3dLTvOJwkZc', pageId: '27633'},
+        { title: 'Leaning Tower of Pisa',desc: "", location: { lat:43.7229559, lng:10.3944083}, id: 'ChIJzYhOxKaR1RIRA_xU1bGp7DI', pageId: '625899'},
+        { title: 'Taj Mahal',desc: "", location: { lat:27.1750199, lng:78.0399665}, id: 'ChIJPRQcHyBxdDkRs1lw_Dj1QnU', pageId: '3135639'},
+        { title: 'Abbaye de Cluny',desc: "", location: { lat:46.4341389, lng:4.6570857}, id: 'ChIJn63c2bgK80cRyRNh9EUhiC4', pageId: '20209307'},
+        { title: 'Colosseum',desc: "", location: { lat:41.8902142, lng:12.4900422}, id: 'ChIJrRMgU7ZhLxMRxAOFkC7I8Sg', pageId: '49603'},
 
     ]),
         query: ko.observable(''),
@@ -50,13 +50,42 @@ $(document).ready(function(){
     //Apply binding to appViewModel
     ko.applyBindings(appViewModel);
 
-    // appViewModel.locations.subscribe(function(newValue) {
-    //     if(newValue) {  // Has focus
-            
-    // } else { 
-    //    // No focus
-    //     }
-    // });
+    //get wiki data for all elements of locations_array
+    locations_array.forEach(getWikiData);
+    
+    //Ajax request from wikipedia
+    var counter = 0;
+    function getWikiData(location){
+        $.ajax({
+            type: "GET",
+            url: "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&pageids="+ location.pageId,
+            contentType: "application/json; charset=utf-8",
+            async: false,
+            dataType: "jsonp",
+            success: function (data, textStatus, jqXHR) {
+                counter ++;
+                var pages =data.query.pages;
+                var extract, shortText;
+                $.each(pages, function(i, val) {
+                    shortText = jQuery.trim(val.extract).substring(0, 50).split(" ").slice(0, -1).join(" ") + "...";
+                    console.log(shortText);
+                    location.desc = shortText;
+                });
+                if (counter >= 6){
+                    appViewModel.locations.removeAll();
+                    // console.log(locations_array.length);
+                    for (var i=0; i< locations_array.length; i++){
+                        appViewModel.locations.push(locations_array[i]);
+                    // console.log(appViewModel.locations());
+                    }
+                    counter = 0;
+                }
+            },
+            error: function (errorMessage) {
+                alert(errorMessage);
+            }
+        });
+    }
 
 
 // initMap needs to be in global scope, hence window.initMap

@@ -20,7 +20,10 @@
  #filter_label {
      color: white;
       }
-
+.place-desc{
+    font-size:12px;
+    color:grey;
+}
 .filter-wrapper {
     padding:10px;
 }
