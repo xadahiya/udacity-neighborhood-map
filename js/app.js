@@ -1,7 +1,7 @@
 function loadScript() {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src = "http://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBszVxYD0f5bCGl7O6eZPEy1_PMoO685a0&v=3&callback=initMap";
+    script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBszVxYD0f5bCGl7O6eZPEy1_PMoO685a0&v=3&callback=initMap";
     document.body.appendChild(script);
     script.onerror = function(){
         alert("Unable to load google maps");
