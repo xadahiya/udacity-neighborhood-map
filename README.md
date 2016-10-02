@@ -5,8 +5,7 @@ Udacity Frontend Developer Nanodegree project
 By: Akshay Dahiya
 
 Basic Description
-This project is SAP using Google Maps API to display the Washington DC area.<br/>
-The markers display many of the monuments and main attractions of the Washington DC area. <br/>
+This project is SAP using Google Maps API to display the seven wonders of the world.<br/>
 <br/>
 <strong>Functionality of the page includes:</strong> <br/> 
 	An interactive navigation bar to filter map and navigation bar results using knockout.js, <br/>
