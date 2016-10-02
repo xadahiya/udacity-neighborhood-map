@@ -1,14 +1,3 @@
-function loadScript() {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyBszVxYD0f5bCGl7O6eZPEy1_PMoO685a0&v=3&callback=initMap";
-    document.body.appendChild(script);
-    script.onerror = function(){
-        alert("Unable to load google maps");
-    }
-}
-window.onload = loadScript;
-
 var counter = 0;
 var map;
 var markers = [];
@@ -430,9 +419,12 @@ function getWikiData(location) {
                 counter = 0;
             }
         },
-        error: function(errorMessage) {
-            alert("Unable to load details from wikipedia");
-        },
         timeout: 3000,
+        error: function(x, t, m) {
+        if(t==="timeout") {
+            // something went wrong (handle it)
+            alert("Details cannot be loaded!");
+        }
+    }
     });
 }
