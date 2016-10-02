@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var locations = [
+    var locations_array = [
         { title: 'Great wall of China', location: { lat: 40.4345472, lng: 116.4978999}, id: 'ChIJzyx_aNch8TUR3yIFlZslQNA'},
         { title: 'Petra', location: { lat:30.328459, lng:35.4421735}, id: 'ChIJsbYaAjBpARURueCjw3tpOuQ'},
         { title: 'Stonehenge', location: { lat:51.1788853, lng:-1.8284037}, id: 'ChIJEfYKhTvmc0gR3dLTvOJwkZc'},
@@ -11,15 +11,40 @@ $(document).ready(function(){
 
     ];
 
-    function AppViewModel(){
-        this.toggleMenu = function(){
+   var appViewModel = {
+        toggleMenu: function(){
         $("#wrapper").toggleClass("toggled");
-        };
+        },
 
-        this.locations = ko.observableArray(locations);
+        locations: ko.observableArray([
+        { title: 'Great wall of China', location: { lat: 40.4345472, lng: 116.4978999}, id: 'ChIJzyx_aNch8TUR3yIFlZslQNA'},
+        { title: 'Petra', location: { lat:30.328459, lng:35.4421735}, id: 'ChIJsbYaAjBpARURueCjw3tpOuQ'},
+        { title: 'Stonehenge', location: { lat:51.1788853, lng:-1.8284037}, id: 'ChIJEfYKhTvmc0gR3dLTvOJwkZc'},
+        { title: 'Leaning Tower of Pisa', location: { lat:43.7229559, lng:10.3944083}, id: 'ChIJzYhOxKaR1RIRA_xU1bGp7DI'},
+        { title: 'Taj Mahal', location: { lat:27.1750199, lng:78.0399665}, id: 'ChIJPRQcHyBxdDkRs1lw_Dj1QnU'},
+        { title: 'Abbaye de Cluny', location: { lat:46.4341389, lng:4.6570857}, id: 'ChIJn63c2bgK80cRyRNh9EUhiC4'},
+        { title: 'Colosseum', location: { lat:41.8902142, lng:12.4900422}, id: 'ChIJrRMgU7ZhLxMRxAOFkC7I8Sg'},
+
+    ]),
+        query: ko.observable(''),
+
+        // Search function for list view
+        search: function(value){
+            appViewModel.locations.removeAll();
+            console.log(locations_array.length);
+            for (var i=0; i< locations_array.length; i++){
+                 if(locations_array[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                    appViewModel.locations.push(locations_array[i]);
+                    console.log(appViewModel.locations());
+                 }
+            }
+        }
     }
+    //Subscribe to search service
+    appViewModel.query.subscribe(appViewModel.search);
+    //Apply binding to appViewModel
+    ko.applyBindings(appViewModel);
 
-    ko.applyBindings(new AppViewModel);
 
 // initMap needs to be in global scope, hence window.initMap
     var map;
@@ -164,7 +189,7 @@ $(document).ready(function(){
 
     
     window.initMap = function(){
-
+        console.log(appViewModel.locations);
     var largeInfowindow = new google.maps.InfoWindow();
         
         map = new google.maps.Map(document.getElementById('map'),{
@@ -178,12 +203,12 @@ $(document).ready(function(){
     // mouses over the marker.
     var highlightedIcon = makeMarkerIcon('FFFF24');
 
-
-    for (var i = 0; i < locations.length; i++) {
+    // console.log(appViewModel.locations().length);
+    for (var i = 0; i < appViewModel.locations().length; i++) {
         // Get the position from the location array.
-        var position = locations[i].location;
-        var title = locations[i].title;
-        var id = locations[i].id;
+        var position = appViewModel.locations()[i].location;
+        var title = appViewModel.locations()[i].title;
+        var id = appViewModel.locations()[i].id;
           // Create a marker per location, and put into markers array.
         var marker = new google.maps.Marker({
             position: position,
