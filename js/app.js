@@ -31,19 +31,32 @@ $(document).ready(function(){
         // Search function for list view
         search: function(value){
             appViewModel.locations.removeAll();
-            console.log(locations_array.length);
+            // console.log(locations_array.length);
             for (var i=0; i< locations_array.length; i++){
                  if(locations_array[i].title.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
                     appViewModel.locations.push(locations_array[i]);
-                    console.log(appViewModel.locations());
+                    // console.log(appViewModel.locations());
                  }
             }
+        },
+        clickedItem: ko.observable(''),
+        itemClicked: function(index){
+            appViewModel.clickedItem(index);
         }
+        
     }
     //Subscribe to search service
     appViewModel.query.subscribe(appViewModel.search);
     //Apply binding to appViewModel
     ko.applyBindings(appViewModel);
+
+    // appViewModel.locations.subscribe(function(newValue) {
+    //     if(newValue) {  // Has focus
+            
+    // } else { 
+    //    // No focus
+    //     }
+    // });
 
 
 // initMap needs to be in global scope, hence window.initMap
@@ -189,7 +202,7 @@ $(document).ready(function(){
 
     
     window.initMap = function(){
-        console.log(appViewModel.locations);
+        // console.log(appViewModel.locations());
     var largeInfowindow = new google.maps.InfoWindow();
         
         map = new google.maps.Map(document.getElementById('map'),{
@@ -203,39 +216,51 @@ $(document).ready(function(){
     // mouses over the marker.
     var highlightedIcon = makeMarkerIcon('FFFF24');
 
-    // console.log(appViewModel.locations().length);
-    for (var i = 0; i < appViewModel.locations().length; i++) {
-        // Get the position from the location array.
-        var position = appViewModel.locations()[i].location;
-        var title = appViewModel.locations()[i].title;
-        var id = appViewModel.locations()[i].id;
-          // Create a marker per location, and put into markers array.
-        var marker = new google.maps.Marker({
-            position: position,
-            title: title,
-            id: id,
-            animation: google.maps.Animation.DROP,
-            icon: defaultIcon,
-            map:map,
-        });
-        // Push the marker to our array of markers.
-        markers.push(marker);
-        // Create an onclick event to open the large infowindow at each marker.
-        marker.addListener('click', function() {
-            // populateInfoWindow(this, largeInfowindow/);
-            getPlacesDetails(this, largeInfowindow);
-            // alert("marker clicked")
-        });
-        // Two event listeners - one for mouseover, one for mouseout,
-        // to change the colors back and forth.
-        marker.addListener('mouseover', function() {
-            this.setIcon(highlightedIcon);
-        });
-        marker.addListener('mouseout', function() {
-            this.setIcon(defaultIcon);
-        });
-    }
+    function addMarkers(locations){
+        // console.log(appViewModel.locations().length);
+        for (var i = 0; i < locations.length; i++) {
+            // Get the position from the location array.
+            var position = locations[i].location;
+            var title = locations[i].title;
+            var id = locations[i].id;
+            // Create a marker per location, and put into markers array.
+            var marker = new google.maps.Marker({
+                position: position,
+                title: title,
+                id: id,
+                animation: google.maps.Animation.DROP,
+                icon: defaultIcon,
+                map:map,
+            });
+            // Push the marker to our array of markers.
+            markers.push(marker);
+            // Create an onclick event to open the large infowindow at each marker.
+            marker.addListener('click', function() {
+                // populateInfoWindow(this, largeInfowindow/);
+                getPlacesDetails(this, largeInfowindow);
+                // alert("marker clicked")
+            });
+            // Two event listeners - one for mouseover, one for mouseout,
+            // to change the colors back and forth.
+            marker.addListener('mouseover', function() {
+                this.setIcon(highlightedIcon);
+            });
+            marker.addListener('mouseout', function() {
+                this.setIcon(defaultIcon);
+            });
+            }
 
+        }
+        addMarkers(appViewModel.locations());
+
+        // This function will loop through the listings and hide them all.
+        function hideMarkers(markers) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+        }
+
+     //Gets place photos from picture id, and inflates infowindow   
     function getPlacesDetails(marker, infowindow) {
         var service = new google.maps.places.PlacesService(map);
         service.getDetails({
@@ -267,11 +292,11 @@ $(document).ready(function(){
     }
 
      // Sets the map on all markers in the array.
-      function setMapOnAll(map) {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(map);
-        }
-      }
+    //   function setMapOnAll(map) {
+    //     for (var i = 0; i < markers.length; i++) {
+    //       markers[i].setMap(map);
+    //     }
+    //   }
 
       function makeMarkerIcon(markerColor) {
         var markerImage = new google.maps.MarkerImage(
@@ -283,6 +308,23 @@ $(document).ready(function(){
           new google.maps.Size(21,34));
         return markerImage;
       }
+
+//modify markers on filter change
+      appViewModel.locations.subscribe(function(){
+        //   alert("hello world");
+        hideMarkers(markers);
+        markers = [];
+        addMarkers(appViewModel.locations());
+        console.log(markers);
+        
+      });
+
+      appViewModel.clickedItem.subscribe(function(){
+            getPlacesDetails(markers[appViewModel.clickedItem()], largeInfowindow); 
+            // console.log(appViewModel.clickedItem());
+            // console.log(markers);
+            // console.log(markers[appViewModel.clickedItem()]);         
+      });
 
 
       };

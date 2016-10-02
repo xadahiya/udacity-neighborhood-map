@@ -25,7 +25,7 @@
             </div>
             
             <ul class="sidebar-nav" data-bind="foreach: locations">
-                    <li data-bind="text: title"></li>
+                    <li data-bind="text: title, click: $parent.itemClicked.bind($data, $index())"></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->

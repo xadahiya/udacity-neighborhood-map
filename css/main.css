@@ -8,10 +8,14 @@
     overflow-x: hidden;
  }
 
+ li {
+     cursor: pointer; cursor: hand; 
+}
+
  #map {
      height: 100%;
      will-change: transform;
- }
+}
 
  #filter_label {
      color: white;
