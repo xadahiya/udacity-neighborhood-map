@@ -24,8 +24,8 @@
             <input type="text" id="filter_map" value="" data-bind="">    
             </div>
             
-            <ul class="sidebar-nav">
-                    
+            <ul class="sidebar-nav" data-bind="foreach: locations">
+                    <li data-bind="text: title"></li>
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
