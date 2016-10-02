@@ -4,6 +4,12 @@ Udacity Frontend Developer Nanodegree project
 <strong>Udacity Neighborhood Map: Project 5</strong><br/>
 By: Akshay Dahiya
 
+##How to use
+	*Download files, or clone repository from [https://github.com/xadahiya/udacity-neighborhood-map]
+
+	*Open index.html
+
+
 Basic Description
 This project is SAP using Google Maps API to display the seven wonders of the world.<br/>
 <br/>
